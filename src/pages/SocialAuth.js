@@ -3,7 +3,7 @@ import { useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import getGoogleUserDetails from "./reusables/getGoogleUserDetails";
 import { useNavigate } from "react-router-dom";
-import { LoginSocialFacebook, LoginSocialGithub } from "reactjs-social-login";
+import { LoginSocialFacebook } from "reactjs-social-login";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
