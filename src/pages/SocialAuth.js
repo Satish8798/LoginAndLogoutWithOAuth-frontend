@@ -4,35 +4,60 @@ import axios from "axios";
 import getGoogleUserDetails from "./reusables/getGoogleUserDetails";
 import { useNavigate } from "react-router-dom";
 import { LoginSocialFacebook, LoginSocialGithub } from "reactjs-social-login";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { FacebookLoginButton } from "react-social-login-buttons";
 
 function SocialAuth({ user, setUser, loginStatus, setLoginStatus }) {
-  const inputData = {};
+
   const navigateTo = useNavigate();
+
+  async function sendToServer(inputData){
+    try {
+      const response = await axios.post("https://login-logout-oauth.onrender.com/user/auth/social", {
+        ...inputData,
+      });
+      if (response.data.msg) {
+        setUser(inputData);
+        setLoginStatus(true);
+        toast("signing in");
+        setTimeout(()=>{
+          navigateTo("/");
+        },2000)
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  //google login
   const googleLogin = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
+      const inputData = {};
       const response = await getGoogleUserDetails(tokenResponse);
-      console.log(response);
       inputData.email = response.data.email;
       inputData.firstName = response.data.given_name;
       inputData.lastName = response.data.family_name;
       inputData.picture = response.data.picture;
       inputData.socialSignUp = true;
-      try {
-        const response = await axios.post("http://localhost:8000/user/signup", {
-          ...inputData,
-        });
-        if (response.data.msg) {
-          console.log("hi");
-          setUser(inputData);
-          setLoginStatus(true);
-          navigateTo("/");
-        }
-      } catch (error) {
-        console.log(error);
-      }
+      inputData.provider='google';
+      sendToServer(inputData);
     },
   });
 
+  //facebook login
+  async function FacebookLogin(response){
+    const inputData = {};
+    inputData.email = response.data.email;
+    inputData.firstName = response.data.first_name;
+    inputData.lastName = response.data.last_name;
+    inputData.picture = response.data.picture.data.url;
+    inputData.socialSignUp = true;
+    inputData.provider='facebook';
+    sendToServer(inputData);
+  }
+
+  //github login
   const loginWithGithub = () => {
     window.location.assign(
       "https://github.com/login/oauth/authorize?client_id=" +
@@ -49,7 +74,7 @@ function SocialAuth({ user, setUser, loginStatus, setLoginStatus }) {
       <LoginSocialFacebook
         appId={process.env.REACT_APP_FACEBOOK_APP_ID}
         onResolve={(response) => {
-          console.log(response);
+          FacebookLogin(response);
         }}
         onReject={(error) => {
           console.log(error);
@@ -71,6 +96,7 @@ function SocialAuth({ user, setUser, loginStatus, setLoginStatus }) {
         <i className="bi bi-github ms-3 fs-2 text-secondary"></i>
       </LoginSocialGithub> */}
        <i className="bi bi-github ms-3 fs-2 text-secondary" onClick={loginWithGithub}></i>
+       <ToastContainer />
     </div>
   );
 }

@@ -1,9 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SocialAuth from "./SocialAuth";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
 
 function Login({ user, setUser, loginStatus, setLoginStatus }) {
   const navigateTo = useNavigate();
+  const [inputData,setInputData] = useState({
+    email:'',
+    password:''
+});
+
+async function handleSubmit(e){
+    e.preventDefault();
+    try {
+        const response = await axios.post("https://login-logout-oauth.onrender.com/user/login", {
+        ...inputData,
+      });
+
+      if (response.data.msg) {
+        setUser(response.data.userDetails);
+        setLoginStatus(true);
+        toast("logging in...!");
+        setTimeout(() => {
+          navigateTo("/");
+        }, 2000);
+      }
+    } catch (error) {
+        console.log(error);
+        toast('inavlid details');
+    }
+}
 
   return (
     <div>
@@ -20,12 +48,15 @@ function Login({ user, setUser, loginStatus, setLoginStatus }) {
             Signup
           </p>
         </div>
-        <form className="login-form mt-3">
+        <form className="login-form mt-3" onSubmit={handleSubmit}>
           <div className="form-floating mb-3">
             <input
               type="email"
               className="form-control w-75"
-              placeholder="name@example.com"
+              value = {inputData.email}
+              onChange={(e)=>{
+                setInputData({...inputData,email: e.target.value})
+              }}
               required
             />
             <label>Email address</label>
@@ -34,7 +65,10 @@ function Login({ user, setUser, loginStatus, setLoginStatus }) {
             <input
               type="password"
               className="form-control w-75"
-              placeholder="Password"
+              value = {inputData.password}
+              onChange={(e)=>{
+                setInputData({...inputData,password: e.target.value})
+              }}
               required
             />
             <label>Password</label>
@@ -42,10 +76,11 @@ function Login({ user, setUser, loginStatus, setLoginStatus }) {
           <button type="submit" className="btn btn-success mt-3">
             Login
           </button>
+          <ToastContainer />
         </form>
         <div className="or text-center">
           <p className="or-text fs-3">or</p>
-          <p className="fs-1">Log in with</p>
+          <p className="fs-1">continue with</p>
         </div>
         <SocialAuth
           user={user}
