@@ -81,7 +81,7 @@ function SocialAuth({ user, setUser, loginStatus, setLoginStatus }) {
       >
         <i className="bi bi-facebook ms-3 fs-2 text-primary"></i>
       </LoginSocialFacebook>
-       <LoginSocialGithub
+       {/* <LoginSocialGithub
         client_id={process.env.REACT_APP_GITHUB_CLIENT_ID}
         client_secret={process.env.REACT_APP_GITHUB_CLIENT_SECRET}
         redirect_uri="http://localhost:3000"
@@ -93,7 +93,7 @@ function SocialAuth({ user, setUser, loginStatus, setLoginStatus }) {
         }}
       >
         <i className="bi bi-github ms-3 fs-2 text-secondary"></i>
-      </LoginSocialGithub>
+      </LoginSocialGithub> */}
        <ToastContainer />
     </div>
   );
