@@ -46,7 +46,7 @@ function App() {
           }
         />
          <Route
-          path="/auth/login/:gh_access_token"
+          path="/auth/login?gh_access_token=value"
           element={
             <Login
               user={user}
