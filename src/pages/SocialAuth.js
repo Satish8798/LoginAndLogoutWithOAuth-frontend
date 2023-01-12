@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import getGoogleUserDetails from "./reusables/getGoogleUserDetails";
@@ -7,9 +6,15 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 
-function SocialAuth({ user, setUser, loginStatus, setLoginStatus }) {
+function SocialAuth({
+  user,
+  setUser,
+  loginStatus,
+  setLoginStatus,
+  loading,
+  setLoading,
+}) {
   const navigateTo = useNavigate();
-  const [loading, setLoading] = useState(false);
   async function sendToServer(inputData) {
     try {
       const response = await axios.post(
@@ -87,21 +92,10 @@ function SocialAuth({ user, setUser, loginStatus, setLoginStatus }) {
         <i className="bi bi-facebook ms-3 fs-2 text-primary"></i>
       </LoginSocialFacebook> */}
 
-        {/*  <LoginSocialGithub
-        client_id={process.env.REACT_APP_GITHUB_CLIENT_ID}
-        client_secret={process.env.REACT_APP_GITHUB_CLIENT_SECRET}
-        redirect_uri="http://localhost:3000"
-        onResolve={(response) => {
-          console.log(response);
-        }}
-        onReject={(error) => {
-          console.log(error);
-        }}
-      >
-        <i className="bi bi-github ms-3 fs-2 text-secondary"></i>
-      </LoginSocialGithub> */}
-        <a href={`https://github.com/login/oauth/authorize?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}`} >
-        <i className="bi bi-github ms-3 fs-2 text-secondary"></i>
+        <a
+          href={`https://github.com/login/oauth/authorize?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}`}
+        >
+          <i className="bi bi-github ms-3 fs-2 text-secondary"></i>
         </a>
         <ToastContainer />
       </div>

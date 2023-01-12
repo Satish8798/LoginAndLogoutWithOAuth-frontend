@@ -7,8 +7,8 @@ import axios from "axios";
 
 function Login({ user, setUser, loginStatus, setLoginStatus }) {
   const search = useLocation().search;
+  const [loading, setLoading] = useState(false);
   const githubAccessToken = new URLSearchParams(search).get("gh_access_token");
-  console.log(githubAccessToken);
   const navigateTo = useNavigate();
   const [inputData, setInputData] = useState({
     email: "",
@@ -16,6 +16,7 @@ function Login({ user, setUser, loginStatus, setLoginStatus }) {
   });
   async function getGithubUser() {
     try {
+      setLoading(true);
       const response = await axios.get("https://api.github.com/user", {
         headers: {
           Authorization: "token " + githubAccessToken,
@@ -23,7 +24,7 @@ function Login({ user, setUser, loginStatus, setLoginStatus }) {
       });
       try {
         const saveResponse = await axios.post(
-          "http://localhost:8000/user/auth/social",
+          "https://login-logout-oauth.onrender.com/user/auth/social",
           {
             email: response.data.email,
             firstName: response.data.name,
@@ -41,6 +42,7 @@ function Login({ user, setUser, loginStatus, setLoginStatus }) {
             picture: response.data.avatar_url,
           });
           setLoginStatus(true);
+          setLoading(false);
           toast("signing in");
           setTimeout(() => {
             navigateTo("/");
@@ -137,6 +139,8 @@ function Login({ user, setUser, loginStatus, setLoginStatus }) {
           setUser={setUser}
           loginStatus={loginStatus}
           setLoginStatus={setLoginStatus}
+          loading={loading}
+           setLoading={setLoading}
         />
       </div>
     </div>
