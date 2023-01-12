@@ -45,6 +45,17 @@ function App() {
             />
           }
         />
+         <Route
+          path="/auth/login?gh_access_token=:value"
+          element={
+            <Login
+              user={user}
+              setUser={setUser}
+              loginStatus={loginStatus}
+              setLoginStatus={setLoginStatus}
+            />
+          }
+        />
       </Routes>
     </div>
   );
