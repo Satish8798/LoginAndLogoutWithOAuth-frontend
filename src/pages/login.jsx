@@ -35,7 +35,7 @@ async function handleSubmit(e){
 
   return (
     <div>
-      <h1>Welcome...! to Satish's App</h1>
+      <h1>Welcome...! to Login-Logout OAuth App</h1>
       <div className="form-container">
         <div className="tabs">
           <p className="link active">Login</p>

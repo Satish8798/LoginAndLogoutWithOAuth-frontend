@@ -37,7 +37,7 @@ function Signup({ user, setUser, loginStatus, setLoginStatus }) {
   }
   return (
     <div>
-      <h1>Welcome...! to Satish's App</h1>
+      <h1>Welcome...! to Login-Logout OAuth App</h1>
       <div className="form-container">
         <div className="tabs">
           <p

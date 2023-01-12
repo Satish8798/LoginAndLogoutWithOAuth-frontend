@@ -9,9 +9,15 @@ function Home({user,setUser,loginStatus,setLoginStatus}) {
             loginStatus? 
             (
                 <div>
-                    <h1>Welcome {user.firstName} {user.lastName} to Satish's App</h1>
-        <h2>Your email id is {user.email}</h2>
-        <img src={user.picture} alt="profilepic" />
+                    <h1>Welcome<span style={{
+                        color: "red"
+                    }}> {user.firstName} {user.lastName} </span>to Login-Logout OAuth App</h1>
+        <h2>Your email id is <span style={{
+            color:"white"
+        }}>{user.email}</span></h2>
+        <img src={user.picture} alt="profilepic" style={{
+            borderRadius:"50%"
+        }}/>
         <br/>
         <button type='button' className='btn btn-danger mt-5' onClick={()=>{
             setLoginStatus(false);

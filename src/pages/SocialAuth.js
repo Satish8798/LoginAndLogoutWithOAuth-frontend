@@ -3,7 +3,7 @@ import { useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import getGoogleUserDetails from "./reusables/getGoogleUserDetails";
 import { useNavigate } from "react-router-dom";
-import { LoginSocialFacebook } from "reactjs-social-login";
+// import { LoginSocialFacebook } from "reactjs-social-login";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -45,7 +45,7 @@ function SocialAuth({ user, setUser, loginStatus, setLoginStatus }) {
   });
 
   //facebook login
-  async function FacebookLogin(response){
+/*   async function FacebookLogin(response){
     const inputData = {};
     inputData.email = response.data.email;
     inputData.firstName = response.data.first_name;
@@ -54,7 +54,7 @@ function SocialAuth({ user, setUser, loginStatus, setLoginStatus }) {
     inputData.socialSignUp = true;
     inputData.provider='facebook';
     sendToServer(inputData);
-  }
+  } */
 
  /*  //github login
   const loginWithGithub = () => {
