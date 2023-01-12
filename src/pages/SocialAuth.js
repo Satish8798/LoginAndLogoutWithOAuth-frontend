@@ -5,7 +5,7 @@ import getGoogleUserDetails from "./reusables/getGoogleUserDetails";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
+// import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 
 function SocialAuth({ user, setUser, loginStatus, setLoginStatus }) {
   const navigateTo = useNavigate();
@@ -60,7 +60,7 @@ function SocialAuth({ user, setUser, loginStatus, setLoginStatus }) {
     sendToServer(inputData);
   } */
 
-   function facebookLogin(response) {
+/*    function facebookLogin(response) {
     axios.post("http://localhost:8000/user/facebook",{
         accessToken: response.accessToken,
         userID: response.userID
@@ -69,7 +69,7 @@ function SocialAuth({ user, setUser, loginStatus, setLoginStatus }) {
     }).catch(err=>{
       console.log(err);
     })
-  }
+  } */
 
   /*  //github login
   const loginWithGithub = () => {
@@ -97,7 +97,7 @@ function SocialAuth({ user, setUser, loginStatus, setLoginStatus }) {
       >
         <i className="bi bi-facebook ms-3 fs-2 text-primary"></i>
       </LoginSocialFacebook> */}
-      <FacebookLogin
+     {/*  <FacebookLogin
         appId="2163963353814638"
         autoLoad={true}
         callback={facebookLogin}
@@ -107,7 +107,7 @@ function SocialAuth({ user, setUser, loginStatus, setLoginStatus }) {
             onClick={renderProps.onClick}
           ></i>
         )}
-      />
+      /> */}
 
       {/*  <LoginSocialGithub
         client_id={process.env.REACT_APP_GITHUB_CLIENT_ID}
