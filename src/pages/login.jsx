@@ -1,23 +1,73 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import SocialAuth from "./SocialAuth";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import axios from 'axios';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 
 function Login({ user, setUser, loginStatus, setLoginStatus }) {
+  const search = useLocation().search;
+  const githubAccessToken = new URLSearchParams(search).get("gh_access_token");
+  console.log(githubAccessToken);
   const navigateTo = useNavigate();
-  const [inputData,setInputData] = useState({
-    email:'',
-    password:''
-});
+  const [inputData, setInputData] = useState({
+    email: "",
+    password: "",
+  });
+  async function getGithubUser() {
+    try {
+      const response = await axios.get("https://api.github.com/user", {
+        headers: {
+          Authorization: "token " + githubAccessToken,
+        },
+      });
+      try {
+        const saveResponse = await axios.post(
+          "http://localhost:8000/user/auth/social",
+          {
+            email: response.data.email,
+            firstName: response.data.name,
+            lastName: null,
+            picture: response.data.avatar_url,
+            socialSignUp: true,
+            provider: "github",
+          }
+        );
+        if (saveResponse.data.msg) {
+          setUser({
+            email: response.data.email,
+            firstName: response.data.name,
+            lastName: null,
+            picture: response.data.avatar_url,
+          });
+          setLoginStatus(true);
+          toast("signing in");
+          setTimeout(() => {
+            navigateTo("/");
+          }, 2000);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  useEffect(() => {
+    if (githubAccessToken) {
+      getGithubUser();
+    }
+  }, []);
 
-async function handleSubmit(e){
+  async function handleSubmit(e) {
     e.preventDefault();
     try {
-        const response = await axios.post("https://login-logout-oauth.onrender.com/user/login", {
-        ...inputData,
-      });
+      const response = await axios.post(
+        "https://login-logout-oauth.onrender.com/user/login",
+        {
+          ...inputData,
+        }
+      );
 
       if (response.data.msg) {
         setUser(response.data.userDetails);
@@ -28,10 +78,10 @@ async function handleSubmit(e){
         }, 2000);
       }
     } catch (error) {
-        console.log(error);
-        toast('inavlid details');
+      console.log(error);
+      toast("inavlid details");
     }
-}
+  }
 
   return (
     <div>
@@ -53,9 +103,9 @@ async function handleSubmit(e){
             <input
               type="email"
               className="form-control w-75"
-              value = {inputData.email}
-              onChange={(e)=>{
-                setInputData({...inputData,email: e.target.value})
+              value={inputData.email}
+              onChange={(e) => {
+                setInputData({ ...inputData, email: e.target.value });
               }}
               required
             />
@@ -65,9 +115,9 @@ async function handleSubmit(e){
             <input
               type="password"
               className="form-control w-75"
-              value = {inputData.password}
-              onChange={(e)=>{
-                setInputData({...inputData,password: e.target.value})
+              value={inputData.password}
+              onChange={(e) => {
+                setInputData({ ...inputData, password: e.target.value });
               }}
               required
             />
