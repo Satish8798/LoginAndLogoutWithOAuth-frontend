@@ -70,7 +70,7 @@ function SocialAuth({ user, setUser, loginStatus, setLoginStatus }) {
         className="bi bi-google ms-3 fs-2 text-danger"
         onClick={googleLogin}
       ></i>
-      <LoginSocialFacebook
+    {/*   <LoginSocialFacebook
         appId={process.env.REACT_APP_FACEBOOK_APP_ID}
         onResolve={(response) => {
           FacebookLogin(response);
@@ -80,7 +80,7 @@ function SocialAuth({ user, setUser, loginStatus, setLoginStatus }) {
         }}
       >
         <i className="bi bi-facebook ms-3 fs-2 text-primary"></i>
-      </LoginSocialFacebook>
+      </LoginSocialFacebook> */}
        {/* <LoginSocialGithub
         client_id={process.env.REACT_APP_GITHUB_CLIENT_ID}
         client_secret={process.env.REACT_APP_GITHUB_CLIENT_SECRET}
