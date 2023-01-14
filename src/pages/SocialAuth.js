@@ -4,7 +4,7 @@ import getGoogleUserDetails from "./reusables/getGoogleUserDetails";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
+import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 
 function SocialAuth({
   user,
@@ -54,7 +54,7 @@ function SocialAuth({
   });
 
   //facebook login
-  /*   async function FacebookLogin(response){
+    async function FacebookLogin(response){
     const inputData = {};
     inputData.email = response.data.email;
     inputData.firstName = response.data.first_name;
@@ -63,7 +63,7 @@ function SocialAuth({
     inputData.socialSignUp = true;
     inputData.provider='facebook';
     sendToServer(inputData);
-  } */
+  }
 
   /*  //github login
   const loginWithGithub = () => {

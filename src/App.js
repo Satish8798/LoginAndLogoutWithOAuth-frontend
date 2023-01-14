@@ -46,7 +46,7 @@ function App() {
           }
         />
          <Route
-          path="/auth/login?gh_access_token=value"
+          path="/auth/login/:githubAccessToken"
           element={
             <Login
               user={user}
