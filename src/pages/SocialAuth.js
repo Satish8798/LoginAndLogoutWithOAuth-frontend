@@ -4,7 +4,7 @@ import getGoogleUserDetails from "./reusables/getGoogleUserDetails";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
+// import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 
 function SocialAuth({
   user,
