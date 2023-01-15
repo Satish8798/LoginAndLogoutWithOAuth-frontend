@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useLocation, useParams } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import SocialAuth from "./SocialAuth";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -9,7 +9,6 @@ function Login({ user, setUser, loginStatus, setLoginStatus }) {
   const search = useLocation().search;
   const [loading, setLoading] = useState(false);
   const githubAccessToken = new URLSearchParams(search).get("ghat");
-  // const {githubAccessToken}= useParams();
   const navigateTo = useNavigate();
   const [inputData, setInputData] = useState({
     email: "",
