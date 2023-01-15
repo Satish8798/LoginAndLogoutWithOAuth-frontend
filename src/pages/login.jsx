@@ -9,6 +9,7 @@ function Login({ user, setUser, loginStatus, setLoginStatus }) {
   const search = useLocation().search;
   const [loading, setLoading] = useState(false);
   const githubAccessToken = new URLSearchParams(search).get("ghat");
+  const discordAccessToken = new URLSearchParams(search).get("dat");
   const navigateTo = useNavigate();
   const [inputData, setInputData] = useState({
     email: "",
@@ -55,10 +56,54 @@ function Login({ user, setUser, loginStatus, setLoginStatus }) {
       console.log(error);
     }
   }
+
+  async function getDiscordUser() {
+    try {
+      setLoading(true);
+      const response = await axios.get("https://discord.com/api/v10/users/@me", {
+        headers: {
+          Authorization: "Bearer " + discordAccessToken,
+        },
+      });
+      try {
+        const saveResponse = await axios.post(
+          "https://login-logout-oauth.onrender.com/user/auth/social",
+          {
+            email: response.data.email,
+            firstName: response.data.username,
+            lastName: null,
+            picture: `https://cdn.discordapp.com/avatars/${response.data.id}/${response.data.avatar}.jpg`,
+            socialSignUp: true,
+            provider: "discord",
+          }
+        );
+        if (saveResponse.data.msg) {
+          setUser({
+            email: response.data.email,
+            firstName: response.data.username,
+            lastName: null,
+            picture: `https://cdn.discordapp.com/avatars/${response.data.id}/${response.data.avatar}.jpg`,
+          });
+          setLoginStatus(true);
+          setLoading(false);
+          toast("signing in");
+          setTimeout(() => {
+            navigateTo("/");
+          }, 2000);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  } 
   useEffect(() => {
     if (githubAccessToken) {
       getGithubUser();
-    }
+    } else if(discordAccessToken){
+      getDiscordUser();
+    } 
   }, []);
 
   async function handleSubmit(e) {
