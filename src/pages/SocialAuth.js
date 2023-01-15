@@ -69,7 +69,11 @@ function SocialAuth({
         >
           <i className="bi bi-facebook ms-3 fs-2 text-primary"></i>
         </a> */}
-
+      {/*   <a
+          href={`https://discord.com/api/oauth2/authorize?client_id=1064223001610035210&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2Fuser%2Fauth%2Fdiscord%2Fredirect&response_type=code&scope=identify`}
+        >
+          <i className="bi bi-discord ms-3 fs-2 text-info"></i>
+        </a> */}
         <a
           href={`https://github.com/login/oauth/authorize?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}`}
         >
