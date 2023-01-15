@@ -52,22 +52,6 @@ function SocialAuth({
     },
   });
 
-  //facebook login
-    async function FacebookLogin(response){
-    const inputData = {};
-    inputData.email = response.data.email;
-    inputData.firstName = response.data.first_name;
-    inputData.lastName = response.data.last_name;
-    inputData.picture = response.data.picture.data.url;
-    inputData.socialSignUp = true;
-    inputData.provider='facebook';
-    sendToServer(inputData);
-  }
-
-  const facebook = ()=>{
-    window.open("http://localhost:8000/user/auth/facebook","_self");
-  }
-
   return (
     <div className="text-center">
       <div className="social-auth d-flex justify-content-center">
@@ -75,20 +59,16 @@ function SocialAuth({
           className="bi bi-google ms-3 fs-2 text-danger"
           onClick={googleLogin}
         ></i>
-        {/*   <LoginSocialFacebook
-        appId={process.env.REACT_APP_FACEBOOK_APP_ID}
-        onResolve={(response) => {
-          FacebookLogin(response);
-        }}
-        onReject={(error) => {
-          console.log(error);
-        }}
-      >
-        <i className="bi bi-facebook ms-3 fs-2 text-primary"></i>
-      </LoginSocialFacebook> */}
 
-<i className="bi bi-facebook ms-3 fs-2 text-primary" onClick={facebook}></i>
-
+        <a
+          href={`https://www.facebook.com/v6.0/dialog/oauth?client_id=${
+            process.env.REACT_APP_FACEBOOK_APP_ID
+          }redirect_uri=${encodeURIComponent(
+            "http://localhost:8000/user/auth/facebook/redirect"
+          )}`}
+        >
+          <i className="bi bi-facebook ms-3 fs-2 text-primary"></i>
+        </a>
 
         <a
           href={`https://github.com/login/oauth/authorize?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}`}
