@@ -45,7 +45,7 @@ function App() {
             />
           }
         />
-         <Route
+         {/* <Route
           path="/auth/login/:githubAccessToken"
           element={
             <Login
@@ -55,7 +55,7 @@ function App() {
               setLoginStatus={setLoginStatus}
             />
           }
-        />
+        /> */}
       </Routes>
     </div>
   );

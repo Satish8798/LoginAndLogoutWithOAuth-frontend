@@ -4,7 +4,6 @@ import getGoogleUserDetails from "./reusables/getGoogleUserDetails";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 
 function SocialAuth({
   user,
@@ -68,14 +67,6 @@ function SocialAuth({
   const facebook = ()=>{
     window.open("http://localhost:8000/user/auth/facebook","_self");
   }
-
-  /*  //github login
-  const loginWithGithub = () => {
-    window.location.assign(
-      "https://github.com/login/oauth/authorize?client_id=" +
-        process.env.REACT_APP_GITHUB_CLIENT_ID
-    );
-  }; */
 
   return (
     <div className="text-center">
