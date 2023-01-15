@@ -65,6 +65,10 @@ function SocialAuth({
     sendToServer(inputData);
   }
 
+  const facebook = ()=>{
+    window.open("http://localhost:8000/user/auth/facebook","_self");
+  }
+
   /*  //github login
   const loginWithGithub = () => {
     window.location.assign(
@@ -91,6 +95,9 @@ function SocialAuth({
       >
         <i className="bi bi-facebook ms-3 fs-2 text-primary"></i>
       </LoginSocialFacebook> */}
+
+<i className="bi bi-facebook ms-3 fs-2 text-primary" onClick={facebook}></i>
+
 
         <a
           href={`https://github.com/login/oauth/authorize?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}`}
