@@ -8,7 +8,7 @@ import axios from "axios";
 function Login({ user, setUser, loginStatus, setLoginStatus }) {
   const search = useLocation().search;
   const [loading, setLoading] = useState(false);
-  const githubAccessToken = new URLSearchParams(search).get("gh_access_token");
+  const githubAccessToken = new URLSearchParams(search).get("ghat");
   // const {githubAccessToken}= useParams();
   const navigateTo = useNavigate();
   const [inputData, setInputData] = useState({
