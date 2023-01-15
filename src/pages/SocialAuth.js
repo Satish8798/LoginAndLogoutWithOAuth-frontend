@@ -60,7 +60,7 @@ function SocialAuth({
           onClick={googleLogin}
         ></i>
 
-        <a
+        {/* <a
           href={`https://www.facebook.com/v15.0/dialog/oauth?
           client_id=${process.env.REACT_APP_FACEBOOK_APP_ID}
           &redirect_uri=${encodeURIComponent(
@@ -68,7 +68,7 @@ function SocialAuth({
           )}`}
         >
           <i className="bi bi-facebook ms-3 fs-2 text-primary"></i>
-        </a>
+        </a> */}
 
         <a
           href={`https://github.com/login/oauth/authorize?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}`}
