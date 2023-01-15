@@ -61,10 +61,10 @@ function SocialAuth({
         ></i>
 
         <a
-          href={`https://www.facebook.com/v6.0/dialog/oauth?client_id=${
+          href={`https://www.facebook.com/v15.0/dialog/oauth?client_id=${
             process.env.REACT_APP_FACEBOOK_APP_ID
-          }redirect_uri=${encodeURIComponent(
-            "http://localhost:8000/user/auth/facebook/redirect"
+          }&redirect_uri=${encodeURIComponent(
+            "https://login-logout-oauth.onrender.com/user/auth/facebook/redirect"
           )}`}
         >
           <i className="bi bi-facebook ms-3 fs-2 text-primary"></i>
