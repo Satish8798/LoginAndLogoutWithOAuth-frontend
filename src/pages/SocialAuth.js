@@ -67,17 +67,6 @@ function SocialAuth({
           onClick={googleLogin}
         ></i>
 
-        {/* Facebook login button */}
-        {/* <a
-          href={`https://www.facebook.com/v15.0/dialog/oauth?
-          client_id=${process.env.REACT_APP_FACEBOOK_APP_ID}
-          &redirect_uri=${encodeURIComponent(
-            "https://login-logout-oauth.onrender.com/user/auth/facebook/redirect"
-          )}`}
-        >
-          <i className="bi bi-facebook ms-3 fs-2 text-primary"></i>
-        </a> */}
-
         {/* Discord Login button */}
         <a
           href={`https://discord.com/api/oauth2/authorize?client_id=${process.env.REACT_APP_DISCORD_CLIENT_ID}&redirect_uri=https%3A%2F%2Flogin-logout-oauth.onrender.com%2Fuser%2Fauth%2Fdiscord%2Fredirect&response_type=code&scope=identify%20email`}
@@ -91,6 +80,18 @@ function SocialAuth({
         >
           <i className="bi bi-github ms-3 fs-2 text-secondary"></i>
         </a>
+
+        {/* Facebook login button */}
+        <a
+          href={`https://www.facebook.com/v15.0/dialog/oauth?
+          client_id=${process.env.REACT_APP_FACEBOOK_APP_ID}
+          &redirect_uri=${encodeURIComponent(
+            "https://login-logout-oauth.onrender.com/user/auth/facebook/redirect"
+          )}`}
+        >
+          <i className="bi bi-facebook ms-3 fs-2 text-primary"></i>
+        </a>
+
         <ToastContainer />
       </div>
 
