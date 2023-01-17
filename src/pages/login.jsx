@@ -6,24 +6,36 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 
 function Login({ user, setUser, loginStatus, setLoginStatus }) {
-  const search = useLocation().search;
-  const [loading, setLoading] = useState(false);
+  const search = useLocation().search; // getting the current URL
+
+  const [loading, setLoading] = useState(false); // after successful authentication , state that shows the loading time for entering into homepage
+
+  // getting the access tokens of github and discord from url which is redirected by server
   const githubAccessToken = new URLSearchParams(search).get("ghat");
   const discordAccessToken = new URLSearchParams(search).get("dat");
-  const navigateTo = useNavigate();
+
+  const navigateTo = useNavigate(); //naviagte hook for navigating through routes
+
+  // state that stores the input data of login form
   const [inputData, setInputData] = useState({
     email: "",
     password: "",
   });
+
+  // function for getting the github user details after successful authentication
   async function getGithubUser() {
     try {
       setLoading(true);
+
+      //requesting the githup api using the access token
       const response = await axios.get("https://api.github.com/user", {
         headers: {
           Authorization: "token " + githubAccessToken,
         },
       });
+
       try {
+        // requesting the server to save the user details in database
         const saveResponse = await axios.post(
           "https://login-logout-oauth.onrender.com/user/auth/social",
           {
@@ -35,13 +47,18 @@ function Login({ user, setUser, loginStatus, setLoginStatus }) {
             provider: "github",
           }
         );
+
+        // check if the user gets saved successfully
         if (saveResponse.data.msg) {
+          //setting the user details in user state to display user details in home page
           setUser({
             email: response.data.email,
             firstName: response.data.name,
             lastName: null,
             picture: response.data.avatar_url,
           });
+
+          //setting the neccessary states after successfull response
           setLoginStatus(true);
           setLoading(false);
           toast("signing in");
@@ -57,15 +74,23 @@ function Login({ user, setUser, loginStatus, setLoginStatus }) {
     }
   }
 
+  // function for getting the discord user details after successful authentication
   async function getDiscordUser() {
     try {
       setLoading(true);
-      const response = await axios.get("https://discord.com/api/v10/users/@me", {
-        headers: {
-          Authorization: "Bearer " + discordAccessToken,
-        },
-      });
+
+      //requesting the discord api for getting the user details using the access token
+      const response = await axios.get(
+        "https://discord.com/api/v10/users/@me",
+        {
+          headers: {
+            Authorization: "Bearer " + discordAccessToken,
+          },
+        }
+      );
+
       try {
+        //saving the discord user details in database
         const saveResponse = await axios.post(
           "https://login-logout-oauth.onrender.com/user/auth/social",
           {
@@ -77,6 +102,8 @@ function Login({ user, setUser, loginStatus, setLoginStatus }) {
             provider: "discord",
           }
         );
+
+        // check if the user gets saved successfully
         if (saveResponse.data.msg) {
           setUser({
             email: response.data.email,
@@ -84,6 +111,8 @@ function Login({ user, setUser, loginStatus, setLoginStatus }) {
             lastName: null,
             picture: `https://cdn.discordapp.com/avatars/${response.data.id}/${response.data.avatar}.jpg`,
           });
+
+          // setting the necessary states after successfull response
           setLoginStatus(true);
           setLoading(false);
           toast("signing in");
@@ -97,18 +126,24 @@ function Login({ user, setUser, loginStatus, setLoginStatus }) {
     } catch (error) {
       console.log(error);
     }
-  } 
+  }
+
+  //useEffecthook
   useEffect(() => {
+    // check the url has which token in it?
     if (githubAccessToken) {
       getGithubUser();
-    } else if(discordAccessToken){
+    } else if (discordAccessToken) {
       getDiscordUser();
-    } 
+    }
   }, []);
 
+  //funtion that handles the login form submission
   async function handleSubmit(e) {
-    e.preventDefault();
+    e.preventDefault(); // preventing the default functionality of form
+
     try {
+      //post requesting the server api to validate the login details
       const response = await axios.post(
         "https://login-logout-oauth.onrender.com/user/login",
         {
@@ -116,7 +151,10 @@ function Login({ user, setUser, loginStatus, setLoginStatus }) {
         }
       );
 
+      // check if the response is successfull
       if (response.data.msg) {
+
+        // setting the necessary states aftrr successfull response
         setUser(response.data.userDetails);
         setLoginStatus(true);
         toast("logging in...!");
@@ -133,6 +171,7 @@ function Login({ user, setUser, loginStatus, setLoginStatus }) {
   return (
     <div>
       <h1>Welcome...! to Login-Logout OAuth App</h1>
+
       <div className="form-container">
         <div className="tabs">
           <p className="link active">Login</p>
@@ -145,6 +184,8 @@ function Login({ user, setUser, loginStatus, setLoginStatus }) {
             Signup
           </p>
         </div>
+
+        {/* login form */}
         <form className="login-form mt-3" onSubmit={handleSubmit}>
           <div className="form-floating mb-3">
             <input
@@ -158,6 +199,7 @@ function Login({ user, setUser, loginStatus, setLoginStatus }) {
             />
             <label>Email address</label>
           </div>
+
           <div className="form-floating">
             <input
               type="password"
@@ -170,22 +212,30 @@ function Login({ user, setUser, loginStatus, setLoginStatus }) {
             />
             <label>Password</label>
           </div>
+
           <button type="submit" className="btn btn-success mt-3">
             Login
           </button>
+
+              {/* toast that shows different messages based on server respones */}
           <ToastContainer />
+
         </form>
+
         <div className="or text-center">
           <p className="or-text fs-3">or</p>
+
           <p className="fs-1">continue with</p>
         </div>
+
+        {/* providing the social login buttons */}
         <SocialAuth
           user={user}
           setUser={setUser}
           loginStatus={loginStatus}
           setLoginStatus={setLoginStatus}
           loading={loading}
-           setLoading={setLoading}
+          setLoading={setLoading}
         />
       </div>
     </div>

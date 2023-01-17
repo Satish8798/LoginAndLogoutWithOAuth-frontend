@@ -6,12 +6,15 @@ import Home from "./pages/Home";
 import { useState } from "react";
 
 function App() {
+
+  /* user and loginStatus states */
   const [user, setUser] = useState({});
-  const [ loginStatus, setLoginStatus ] = useState(false);
+  const [loginStatus, setLoginStatus] = useState(false);
 
   return (
     <div className="wrapper">
       <Routes>
+        {/* Route for homepage */}
         <Route
           path="/"
           element={
@@ -23,6 +26,8 @@ function App() {
             />
           }
         />
+
+        {/* Route for signup page */}
         <Route
           path="/auth/signup"
           element={
@@ -34,6 +39,8 @@ function App() {
             />
           }
         />
+
+        {/* Route for login page */}
         <Route
           path="/auth/login"
           element={
@@ -45,17 +52,6 @@ function App() {
             />
           }
         />
-         {/* <Route
-          path="/auth/login/:githubAccessToken"
-          element={
-            <Login
-              user={user}
-              setUser={setUser}
-              loginStatus={loginStatus}
-              setLoginStatus={setLoginStatus}
-            />
-          }
-        /> */}
       </Routes>
     </div>
   );
