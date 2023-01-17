@@ -1,3 +1,9 @@
+#Facebook Login Issue.
+
+facebook is not accepting the netlify deploed app for oauth implementation.
+So I have implemented Discord Oauth login also so that i could implement three oauth logins successfully
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
