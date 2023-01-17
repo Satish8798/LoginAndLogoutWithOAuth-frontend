@@ -92,7 +92,6 @@
 }
 
 .bi:hover{
-  transform: scale(1.2);
   box-shadow: 3px 3px 3px gold;
   border-radius:50%;
 }
@@ -102,6 +101,7 @@
   box-shadow: 3px 3px 3px gold;
 }
 
+/* responsiveness */
 @media screen and (min-width: 350px) and (max-width: 768px) {
 
   .wrapper {
