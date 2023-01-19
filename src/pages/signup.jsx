@@ -14,12 +14,15 @@ function Signup({ user, setUser, loginStatus, setLoginStatus }) {
     password: "",
   });
 
+  const [signupLoading, setSignupLoading] = useState(false); // loading for signup 
+
+
   const navigateTo = useNavigate(); //hook used for navigating through routes
 
   //function to handle the signup form submission
   async function handleSubmit(e) {
     e.preventDefault(); // preventing the default functionality of form
-
+    setSignupLoading(true);
     try {
       //post requesting the server api to register/save the user details if all provided details are valid
       const response = await axios.post("https://login-logout-oauth.onrender.com/user/signup", {
@@ -34,6 +37,7 @@ function Signup({ user, setUser, loginStatus, setLoginStatus }) {
         }
         toast("signed up successfully! please login");
         setTimeout(() => {
+          setSignupLoading(false);
           navigateTo("/auth/login"); //navigating to the login page after successfull registeration
         }, 2000);
       }
@@ -113,8 +117,13 @@ function Signup({ user, setUser, loginStatus, setLoginStatus }) {
             <label>Password</label>
           </div>
 
-          <button type="submit" className="btn btn-success mt-3">
-            Signup
+          <button type="submit" className="btn btn-success mt-3 w-50" disabled={signupLoading}>
+            {
+              signupLoading? 
+              (<div className="spinner-border text-warning mt-2" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>): `Signup`
+            } 
           </button>
 
            {/* toast that shows different messages based on server respones */}

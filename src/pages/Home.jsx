@@ -19,7 +19,7 @@ function Home({ user, setUser, loginStatus, setLoginStatus }) {
             }}
           >
             <img
-              src={user.picture}
+              src={user.picture? user.picture : `../images/defaultprofile`}
               className="card-img-top m-5"
               alt="..."
               style={{

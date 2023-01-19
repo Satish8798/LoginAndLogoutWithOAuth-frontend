@@ -9,7 +9,7 @@ function Login({ user, setUser, loginStatus, setLoginStatus }) {
   const search = useLocation().search; // getting the current URL
 
   const [loading, setLoading] = useState(false); // after successful authentication , state that shows the loading time for entering into homepage
-
+  const [loginLoading, setLoginLoading] = useState(false); // loading for login 
   // getting the access tokens of github and discord from url which is redirected by server
   const githubAccessToken = new URLSearchParams(search).get("ghat");
   const discordAccessToken = new URLSearchParams(search).get("dat");
@@ -142,6 +142,8 @@ function Login({ user, setUser, loginStatus, setLoginStatus }) {
   async function handleSubmit(e) {
     e.preventDefault(); // preventing the default functionality of form
 
+    setLoginLoading(true);
+
     try {
       //post requesting the server api to validate the login details
       const response = await axios.post(
@@ -159,6 +161,7 @@ function Login({ user, setUser, loginStatus, setLoginStatus }) {
         setLoginStatus(true);
         toast("logging in...!");
         setTimeout(() => {
+          setLoginLoading(false);
           navigateTo("/");
         }, 2000);
       }
@@ -213,8 +216,14 @@ function Login({ user, setUser, loginStatus, setLoginStatus }) {
             <label>Password</label>
           </div>
 
-          <button type="submit" className="btn btn-success mt-3">
-            Login
+          <button type="submit" className="btn btn-success mt-3 w-50"  disabled= {loginLoading}>
+            {loginLoading? 
+            (
+              <div className="spinner-border text-warning mt-2" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+            )  : `Login`
+          }
           </button>
 
               {/* toast that shows different messages based on server respones */}
