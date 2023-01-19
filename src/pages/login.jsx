@@ -166,7 +166,7 @@ function Login({ user, setUser, loginStatus, setLoginStatus }) {
         }, 2000);
       }
     } catch (error) {
-      console.log(error);
+     setLoginLoading(false);
       toast("inavlid details");
     }
   }

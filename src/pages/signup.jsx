@@ -42,7 +42,7 @@ function Signup({ user, setUser, loginStatus, setLoginStatus }) {
         }, 2000);
       }
     } catch (error) {
-      console.log(error);
+      setSignupLoading(false);
       toast("enter details correctly");
     }
   }

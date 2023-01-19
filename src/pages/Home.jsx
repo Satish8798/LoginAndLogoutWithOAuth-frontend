@@ -1,8 +1,38 @@
-import React from "react";
+import axios from "axios";
+import React,{useState} from "react";
 import { useNavigate } from "react-router-dom";
+import photo from "../images/images.jpg"
 
 function Home({ user, setUser, loginStatus, setLoginStatus }) {
   const navigateTo = useNavigate(); // hook for navigating through routes
+  const [image,setImage] = useState('');
+  console.log(user)
+  const submitImage = async ()=>{
+
+    const data = new FormData();
+    data.append('file',image);
+    data.append('upload_preset',"oauth-login");
+    data.append('cloud_name','dvvitblng');
+
+    try {
+     let response = await fetch('https://api.cloudinary.com/v1_1/dvvitblng/image/upload',{
+      method: 'post',
+      body: data
+     })
+     response = await response.json();
+
+      axios.post('http://localhost:8000/user/change-profile-picture',{
+        picture: response.url,
+        email: user.email,
+      }).then(res=>{
+        if(res.data) setUser({...user,picture:response.url})
+      }).catch(err=>console.log(err))
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  console.log(user.picture)
   return (
     <div>
       {/* rendering different content based on loginStatus */}
@@ -15,20 +45,30 @@ function Home({ user, setUser, loginStatus, setLoginStatus }) {
             style={{
               width: "20rem",
               backgroundColor: "black",
-              boxShadow: "2px 2px 2px 2px yellow",
+              boxShadow: "2px 2px 2px 5px blue",
             }}
           >
             <img
-              src={user.picture? user.picture : `../images/defaultprofile`}
-              className="card-img-top m-5"
+              src={user.picture? user.picture : photo}
+              className="card-img-top m-2"
               alt="..."
               style={{
                 borderRadius: "50%",
                 width: 200,
-                border: "1px solid red",
+                height: 200,
+                border: "2px solid yellow",
               }}
             ></img>
-
+            <input type="file" accept="image/jpeg, image/jpg, image/png" onChange={(e)=>{ 
+              setImage(e.target.files[0]);
+            }}/>
+             <button
+                type="button"
+                className="btn btn-warning w-50 ms-2 mt-2"
+                onClick={submitImage}
+              >
+               change picture
+              </button>
             <div className="card-body">
               <h5 className="card-title">
                 {user.firstName} {user.lastName}
@@ -45,7 +85,7 @@ function Home({ user, setUser, loginStatus, setLoginStatus }) {
               {/* logout button */}
               <button
                 type="button"
-                className="btn btn-danger mt-1"
+                className="btn btn-danger"
                 onClick={() => {
                   setLoginStatus(false);
                   setUser({});
