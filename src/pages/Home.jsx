@@ -20,7 +20,7 @@ function Home({ user, setUser, loginStatus, setLoginStatus }) {
      })
      response = await response.json();
 
-      axios.post('http://localhost:8000/user/change-profile-picture',{
+      axios.post('https://login-logout-oauth.onrender.com/user/change-profile-picture',{
         picture: response.url,
         email: user.email,
       }).then(res=>{
