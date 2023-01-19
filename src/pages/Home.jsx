@@ -6,7 +6,6 @@ import photo from "../images/images.jpg"
 function Home({ user, setUser, loginStatus, setLoginStatus }) {
   const navigateTo = useNavigate(); // hook for navigating through routes
   const [image,setImage] = useState('');
-  console.log(user)
   const submitImage = async ()=>{
 
     const data = new FormData();
