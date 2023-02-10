@@ -93,7 +93,7 @@ function Home({ user, setUser, loginStatus, setLoginStatus }) {
                  navigateTo('/todo')
                 }}
               >
-                Todo APP
+                Your Todos
               </button>
               {/* logout button */}
               <button

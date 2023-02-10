@@ -9,7 +9,7 @@
 .wrapper {
   background-color: black;
   min-height: 100vh;
-  min-width: 100vw;
+  min-width: 90vw;
   color: gold;
   padding: 2%;
 }
@@ -152,7 +152,7 @@ input[type="file"]::file-selector-button{
 }
 
 .todo-list{
-  height: 300px;
+  height: 250px;
   overflow-y: scroll;
   padding: 10px;
   background-color: black;
@@ -172,3 +172,19 @@ input[type="file"]::file-selector-button{
 .option>i:hover{
   transform: scale(1.1);
 }
+
+/* custom scrollbar */
+
+::-webkit-scrollbar{
+  width: 5px;
+}
+
+::-webkit-scrollbar-track{
+  background-color: grey;
+}
+
+::-webkit-scrollbar-thumb{
+  background: linear-gradient(gold,black);
+  border-radius: 10px;
+}
+

@@ -66,7 +66,7 @@ function Todo({ user, loginStatus }) {
         className="bi bi-arrow-left-circle-fill"
         style={{ fontSize: "40px" }}
       ></i>
-      <h1 className="m-1">TODO LIST APP</h1>
+      <h1 className="m-1">TODO LIST</h1>
       <div className="row">
         <div className="col-12">
           <div className="form-floating mb-3">
