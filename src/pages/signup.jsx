@@ -43,8 +43,11 @@ function Signup({ user, setUser, loginStatus, setLoginStatus }) {
       }
     } catch (error) {
       setSignupLoading(false);
-      console.log(error.response.data.info)
-      toast("enter details correctly");
+      if(error.response.data.info==='user already exists'){
+        toast("User already exists")
+      }else{
+        toast("enter details correctly");
+      }
     }
   }
   return (
