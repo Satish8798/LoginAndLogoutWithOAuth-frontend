@@ -19,9 +19,9 @@ function Todo({ user, loginStatus }) {
       );
 
       if (response.data.msg) {
-       setTimeout(()=>{
+
         setAddLoading(false);
-       },2000)
+
         setTodoList([...response.data.todos]);
         setTodo("");
       } else {
