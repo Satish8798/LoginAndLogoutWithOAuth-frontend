@@ -83,7 +83,7 @@ function Todo({ user, loginStatus }) {
             />
             <label style={{ color: "black" }}>Enter todo..</label>
             <button className="btn btn-primary mt-2" onClick={handleAddTodo}>
-              {addLoading ? (
+              {!addLoading ? (
                 <p>Add Todo</p>
               ) : (
                 <div class="spinner-border text-dark" role="status">
