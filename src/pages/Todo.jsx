@@ -6,15 +6,21 @@ import axios from "axios";
 function Todo({ user, loginStatus }) {
   const [todo, setTodo] = useState("");
   const [todoList, setTodoList] = useState([]);
+  const [addLoading, setAddLoading] = useState(false);
   console.log(user);
   async function handleAddTodo() {
+    setAddLoading(true);
     try {
-      const response = await axios.post("https://login-logout-oauth.onrender.com/user/todo/add", {
-        id: user["_id"],
-        todo,
-      });
+      const response = await axios.post(
+        "https://login-logout-oauth.onrender.com/user/todo/add",
+        {
+          id: user["_id"],
+          todo,
+        }
+      );
 
       if (response.data.msg) {
+        setAddLoading(false);
         setTodoList([...response.data.todos]);
         setTodo("");
       } else {
@@ -27,23 +33,26 @@ function Todo({ user, loginStatus }) {
 
   const navigateTo = useNavigate();
 
-  async function getTodos(){
+  async function getTodos() {
     try {
-        const response = await axios.get('https://login-logout-oauth.onrender.com/user/todo/get-list/'+user["_id"]);
+      const response = await axios.get(
+        "https://login-logout-oauth.onrender.com/user/todo/get-list/" +
+          user["_id"]
+      );
 
-        if(response.data.msg){
-            setTodoList(response.data.todos);
-        }else{
-            console.log(response.data.error)
-        }
+      if (response.data.msg) {
+        setTodoList(response.data.todos);
+      } else {
+        console.log(response.data.error);
+      }
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
   }
-  
+
   useEffect(() => {
-    if(!loginStatus){
-        navigateTo('/')
+    if (!loginStatus) {
+      navigateTo("/");
     }
     getTodos();
   }, []);
@@ -73,7 +82,13 @@ function Todo({ user, loginStatus }) {
             />
             <label style={{ color: "black" }}>Enter todo..</label>
             <button className="btn btn-primary mt-2" onClick={handleAddTodo}>
-              Add todo
+              {addLoading ? (
+                <p>Add Todo</p>
+              ) : (
+                <div class="spinner-border text-dark" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+              )}
             </button>
           </div>
           <div className="col-12 mt-5">
