@@ -43,7 +43,7 @@ function Signup({ user, setUser, loginStatus, setLoginStatus }) {
       }
     } catch (error) {
       setSignupLoading(false);
-      console.log(error)
+      console.log(error.response.data.info)
       toast("enter details correctly");
     }
   }
