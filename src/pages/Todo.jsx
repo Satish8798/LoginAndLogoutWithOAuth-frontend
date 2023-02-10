@@ -7,7 +7,6 @@ function Todo({ user, loginStatus }) {
   const [todo, setTodo] = useState("");
   const [todoList, setTodoList] = useState([]);
   const [addLoading, setAddLoading] = useState(false);
-  console.log(user);
   async function handleAddTodo() {
     setAddLoading(true);
     try {
@@ -20,7 +19,9 @@ function Todo({ user, loginStatus }) {
       );
 
       if (response.data.msg) {
+       setTimeout(()=>{
         setAddLoading(false);
+       },2000)
         setTodoList([...response.data.todos]);
         setTodo("");
       } else {
