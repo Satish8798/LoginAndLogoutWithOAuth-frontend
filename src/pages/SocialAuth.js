@@ -29,7 +29,7 @@ function SocialAuth({
 
       // check for successful response
       if (response.data.msg) {
-        setUser(inputData);
+        setUser({...response.data.user});
         setLoginStatus(true);
         setLoading(false);
         toast("signing in");
@@ -68,10 +68,11 @@ function SocialAuth({
         ></i>
 
         {/* Discord Login button */}
+       
         <a
           href={`https://discord.com/api/oauth2/authorize?client_id=${process.env.REACT_APP_DISCORD_CLIENT_ID}&redirect_uri=https%3A%2F%2Flogin-logout-oauth.onrender.com%2Fuser%2Fauth%2Fdiscord%2Fredirect&response_type=code&scope=identify%20email`}
         >
-          <i className="bi bi-discord ms-3 fs-2 text-info"></i>
+           <i className="bi bi-discord ms-3 fs-2 text-info"></i>
         </a>
 
         {/* Github login button */}

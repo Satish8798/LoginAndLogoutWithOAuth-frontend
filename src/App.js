@@ -4,6 +4,7 @@ import Login from "./pages/login";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import { useState } from "react";
+import Todo from "./pages/Todo";
 
 function App() {
 
@@ -32,6 +33,19 @@ function App() {
           path="/auth/signup"
           element={
             <Signup
+              user={user}
+              setUser={setUser}
+              loginStatus={loginStatus}
+              setLoginStatus={setLoginStatus}
+            />
+          }
+        />
+
+        {/* Route for todo list page */}
+        <Route
+          path="/todo"
+          element={
+            <Todo
               user={user}
               setUser={setUser}
               loginStatus={loginStatus}

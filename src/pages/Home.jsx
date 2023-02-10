@@ -1,13 +1,16 @@
+import { Navigation } from "@mui/icons-material";
 import axios from "axios";
-import React,{useState} from "react";
+import React,{useRef, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import photo from "../images/images.jpg"
 
 function Home({ user, setUser, loginStatus, setLoginStatus }) {
   const navigateTo = useNavigate(); // hook for navigating through routes
   const [image,setImage] = useState('');
+  const pictureRef = useRef();
   const submitImage = async ()=>{
 
+    pictureRef.current.value='';
     const data = new FormData();
     data.append('file',image);
     data.append('upload_preset',"oauth-login");
@@ -20,11 +23,13 @@ function Home({ user, setUser, loginStatus, setLoginStatus }) {
      })
      response = await response.json();
 
-      axios.post('https://login-logout-oauth.onrender.com/user/change-profile-picture',{
+      axios.put('https://login-logout-oauth.onrender.com/user/change-profile-picture',{
         picture: response.url,
         email: user.email,
       }).then(res=>{
-        if(res.data) setUser({...user,picture:response.url})
+        if(res.data){
+          setUser({...user,picture:response.url});
+        }
       }).catch(err=>console.log(err))
 
     } catch (error) {
@@ -58,7 +63,7 @@ function Home({ user, setUser, loginStatus, setLoginStatus }) {
                 border: "2px solid yellow",
               }}
             ></img>
-            <input type="file" accept="image/jpeg, image/jpg, image/png" onChange={(e)=>{ 
+            <input ref={pictureRef} type="file" accept="image/jpeg, image/jpg, image/png" onChange={(e)=>{ 
               setImage(e.target.files[0]);
             }}/>
              <button
@@ -80,7 +85,16 @@ function Home({ user, setUser, loginStatus, setLoginStatus }) {
                 acceess them in oauth, naming in github is different(last name
                 is not provied)
               </p>
-
+                 {/* todo page button */}
+              <button
+                type="button"
+                className="btn btn-primary me-5"
+                onClick={() => {
+                 navigateTo('/todo')
+                }}
+              >
+                Todo APP
+              </button>
               {/* logout button */}
               <button
                 type="button"

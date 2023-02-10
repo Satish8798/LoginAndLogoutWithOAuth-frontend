@@ -51,12 +51,7 @@ function Login({ user, setUser, loginStatus, setLoginStatus }) {
         // check if the user gets saved successfully
         if (saveResponse.data.msg) {
           //setting the user details in user state to display user details in home page
-          setUser({
-            email: response.data.email,
-            firstName: response.data.name,
-            lastName: null,
-            picture: response.data.avatar_url,
-          });
+          setUser({...saveResponse.data.user});
 
           //setting the neccessary states after successfull response
           setLoginStatus(true);
@@ -105,12 +100,8 @@ function Login({ user, setUser, loginStatus, setLoginStatus }) {
 
         // check if the user gets saved successfully
         if (saveResponse.data.msg) {
-          setUser({
-            email: response.data.email,
-            firstName: response.data.username,
-            lastName: null,
-            picture: `https://cdn.discordapp.com/avatars/${response.data.id}/${response.data.avatar}.jpg`,
-          });
+          console.log(saveResponse.data)
+          setUser({...saveResponse.data.user});
 
           // setting the necessary states after successfull response
           setLoginStatus(true);

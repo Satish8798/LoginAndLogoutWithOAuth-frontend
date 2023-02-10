@@ -150,3 +150,25 @@
 input[type="file"]::file-selector-button{
   margin-left: 10px;
 }
+
+.todo-list{
+  height: 300px;
+  overflow-y: scroll;
+  padding: 10px;
+  background-color: black;
+  border-radius: 10px;
+  
+}
+
+.task-container{
+  width: 80%;
+  min-height:50px;
+  background-color: gold;
+  color:black;
+  border: 1px solid black;
+  border-radius: 10px
+}
+
+.option>i:hover{
+  transform: scale(1.1);
+}
