@@ -7,7 +7,8 @@ function Todo({ user, loginStatus }) {
   const [todo, setTodo] = useState("");
   const [todoList, setTodoList] = useState([]);
   const [addLoading, setAddLoading] = useState(false);
-  async function handleAddTodo() {
+  async function handleAddTodo(e) {
+    e.preventDefault();
     setAddLoading(true);
     try {
       const response = await axios.post(
@@ -69,7 +70,7 @@ function Todo({ user, loginStatus }) {
       <h1 className="m-1">TODO LIST</h1>
       <div className="row">
         <div className="col-12">
-          <div className="form-floating mb-3">
+          <form className="form-floating mb-3" onSubmit={handleAddTodo}>
             <input
               type="text"
               value={todo}
@@ -82,7 +83,7 @@ function Todo({ user, loginStatus }) {
               required
             />
             <label style={{ color: "black" }}>Enter todo..</label>
-            <button className="btn btn-primary mt-2" onClick={handleAddTodo}>
+            <button type='submit' className="btn btn-primary mt-2" >
               {!addLoading ? (
                 <p>Add Todo</p>
               ) : (
@@ -91,7 +92,7 @@ function Todo({ user, loginStatus }) {
                 </div>
               )}
             </button>
-          </div>
+          </form>
           <div className="col-12 mt-5">
             <h3>Todo List</h3>
             <div className="todo-list">
