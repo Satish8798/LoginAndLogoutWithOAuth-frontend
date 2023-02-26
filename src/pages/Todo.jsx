@@ -83,9 +83,9 @@ function Todo({ user, loginStatus }) {
               required
             />
             <label style={{ color: "black" }}>Enter todo..</label>
-            <button type='submit' className="btn btn-primary mt-2" >
+            <button type='submit' className="btn btn-primary mt-2 w-50" >
               {!addLoading ? (
-                <p>Add Todo</p>
+                "Add Todo"
               ) : (
                 <div class="spinner-border text-dark" role="status">
                   <span class="visually-hidden">Loading...</span>
@@ -94,7 +94,7 @@ function Todo({ user, loginStatus }) {
             </button>
           </form>
           <div className="col-12 mt-5">
-            <h3>Todo List</h3>
+            <h3>List</h3>
             <div className="todo-list">
               {todoList.length !== 0 &&
                 todoList.map((t, i) => (

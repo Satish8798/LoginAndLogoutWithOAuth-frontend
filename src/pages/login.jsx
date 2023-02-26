@@ -216,6 +216,13 @@ function Login({ user, setUser, loginStatus, setLoginStatus }) {
             )  : `Login`
           }
           </button>
+          <br />
+          <button type="button" className="btn btn-success mt-3 w-50" 
+          onClick={()=>{
+            setInputData({ password: "Guest@123#123" , email: "guest@gmail.com" });
+          }}>
+            Guest Login
+          </button>
 
               {/* toast that shows different messages based on server respones */}
           <ToastContainer />

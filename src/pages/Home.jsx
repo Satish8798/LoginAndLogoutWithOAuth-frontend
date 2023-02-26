@@ -2,7 +2,7 @@ import { Navigation } from "@mui/icons-material";
 import axios from "axios";
 import React,{useRef, useState} from "react";
 import { useNavigate } from "react-router-dom";
-import photo from "../images/images.jpg"
+import photo from "../images/Default_pfp.svg.png"
 
 function Home({ user, setUser, loginStatus, setLoginStatus }) {
   const navigateTo = useNavigate(); // hook for navigating through routes
