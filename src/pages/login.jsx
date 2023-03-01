@@ -163,9 +163,8 @@ function Login({ user, setUser, loginStatus, setLoginStatus }) {
   }
 
   return (
-    <div>
-      <h1>Welcome...! to Login-Logout OAuth App</h1>
-
+    <div className="col-12 d-flex flex-column justify-content-center align-items-center">
+      <h1 style={{textShadow:"2px 2px 2px red"}}>OAUTH-TODO APP</h1>
       <div className="form-container">
         <div className="tabs">
           <p className="link active">Login</p>
@@ -181,7 +180,7 @@ function Login({ user, setUser, loginStatus, setLoginStatus }) {
 
         {/* login form */}
         <form className="login-form mt-3" onSubmit={handleSubmit}>
-          <div className="form-floating mb-3">
+          <div className="form-floating mb-2">
             <input
               type="email"
               className="form-control w-75"
@@ -207,7 +206,7 @@ function Login({ user, setUser, loginStatus, setLoginStatus }) {
             <label>Password</label>
           </div>
 
-          <button type="submit" className="btn btn-success mt-3 w-50"  disabled= {loginLoading}>
+          <button type="submit" className="btn btn-success mt-2 w-50"  disabled= {loginLoading}>
             {loginLoading? 
             (
               <div className="spinner-border text-warning mt-2" role="status">
@@ -217,7 +216,7 @@ function Login({ user, setUser, loginStatus, setLoginStatus }) {
           }
           </button>
           <br />
-          <button type="button" className="btn btn-success mt-3 w-50" 
+          <button type="button" className="btn btn-success mt-2 w-50" 
           onClick={()=>{
             setInputData({ password: "Guest@123#123" , email: "guest@gmail.com" });
           }}>
@@ -232,7 +231,7 @@ function Login({ user, setUser, loginStatus, setLoginStatus }) {
         <div className="or text-center">
           <p className="or-text fs-3">or</p>
 
-          <p className="fs-1">continue with</p>
+          <p className="fs-6">continue with</p>
         </div>
 
         {/* providing the social login buttons */}

@@ -1,6 +1,6 @@
 import { Navigation } from "@mui/icons-material";
 import axios from "axios";
-import React,{useRef, useState} from "react";
+import React,{useEffect, useRef, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import photo from "../images/Default_pfp.svg.png"
 
@@ -36,20 +36,34 @@ function Home({ user, setUser, loginStatus, setLoginStatus }) {
       console.log(error);
     }
   }
-  console.log(user.picture)
+
+  useEffect(()=>{
+    if(!loginStatus) {
+      navigateTo('/auth/login')
+    }
+  },[loginStatus]);
   return (
-    <div>
-      {/* rendering different content based on loginStatus */}
-      {loginStatus ? (
-        <div>
-          <h2>Welcome in!!! to the login-logout OAuth app</h2>
+    <div className="row d-flex justify-content-center align-items-center ">
+      <div className="col-lg-6 col-md-8 col-12">
+      <div className="d-flex flex-row justify-content-between align-items-center">
+      <h1 style={{textShadow:"2px 2px 2px red"}}>OAUTH-TODO APP</h1>
+      <button
+                type="button"
+                className="btn btn-warning"
+                onClick={() => {
+                 navigateTo('/todo')
+                }}
+              >
+                Your TODOs
+              </button>
+      </div>
           {/* card that displays user details */}
           <div
-            className="card"
+            className="card mt-3 text-light"
             style={{
-              width: "20rem",
-              backgroundColor: "black",
-              boxShadow: "2px 2px 2px 5px blue",
+              backgroundColor: "#d3d3d31a",
+              width: "100%",
+              boxShadow: "2px 2px 5px 2px gold,-2px -2px 5px 2px gold",
             }}
           >
             <img
@@ -86,15 +100,7 @@ function Home({ user, setUser, loginStatus, setLoginStatus }) {
                 is not provied)
               </p>
                  {/* todo page button */}
-              <button
-                type="button"
-                className="btn btn-primary me-5"
-                onClick={() => {
-                 navigateTo('/todo')
-                }}
-              >
-                Your Todos
-              </button>
+              
               {/* logout button */}
               <button
                 type="button"
@@ -109,23 +115,6 @@ function Home({ user, setUser, loginStatus, setLoginStatus }) {
             </div>
           </div>
         </div>
-      ) : (
-        <div>
-          <h1>you are not logged in yet</h1>
-
-          <h1>please login to enter into Satish's App</h1>
-
-          {/* button that navigates to login route */}
-          <button
-            className="btn btn-success mt-5"
-            onClick={() => {
-              navigateTo("/auth/login");
-            }}
-          >
-            Log in
-          </button>
-        </div>
-      )}
     </div>
   );
 }

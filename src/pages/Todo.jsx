@@ -59,7 +59,8 @@ function Todo({ user, loginStatus }) {
     getTodos();
   }, []);
   return (
-    <div className="container">
+    <div className="row d-flex justify-content-center align-items-center">
+      <div className="col-lg-6 col-md-8 col-12">
       <i
         onClick={() => {
           navigateTo(-1);
@@ -114,6 +115,7 @@ function Todo({ user, loginStatus }) {
             </div>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );
